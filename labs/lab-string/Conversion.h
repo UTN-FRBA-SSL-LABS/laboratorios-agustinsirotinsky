@@ -16,7 +16,12 @@
  * Post: devuelve el valor entero correspondiente a la cadena */
 int ToInteger(const char *s);
 
-/* TODO: agregar una operacion a definir libremente.
- * Documentar Pre, Post y firma antes del prototipo. */
+/* FromInteger: Integer -> String  (inversa de ToInteger)
+ * Pre:  buffer != NULL y tiene lugar para al menos 12 chars
+ *       (signo + 10 digitos + '\0', suficiente para cualquier int de 32 bits)
+ * Post: buffer contiene la representacion decimal de n, con '-' si n < 0,
+ *       sin ceros a izquierda y terminada en '\0'.
+ *       Para todo n: ToInteger(buffer) == n */
+void FromInteger(int n, char *buffer);
 
 #endif

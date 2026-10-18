@@ -14,9 +14,30 @@ int ToInteger(const char *s) {
     if (*s == '-') { signo = -1; s++; }
     for (; *s != '\0'; s++)
         resultado = resultado * 10 + (*s - '0');
-    return signo; /* bug: falta multiplicar signo por resultado */
+    return signo * resultado;
 }
 
 /* ── Operacion libre ─────────────────────────────────────────────────────── */
 
-/* TODO */
+void FromInteger(int n, char *buffer) {
+    /* se trabaja con long para poder negar INT_MIN sin overflow */
+    long valor = n;
+    char *p = buffer;
+    if (valor < 0) {
+        *p++ = '-';
+        valor = -valor;
+    }
+    /* se generan los digitos en orden inverso */
+    char *inicio = p;
+    do {
+        *p++ = (char)('0' + valor % 10);
+        valor /= 10;
+    } while (valor > 0);
+    *p = '\0';
+    /* se invierte la parte de digitos */
+    for (char *fin = p - 1; inicio < fin; inicio++, fin--) {
+        char tmp = *inicio;
+        *inicio = *fin;
+        *fin = tmp;
+    }
+}

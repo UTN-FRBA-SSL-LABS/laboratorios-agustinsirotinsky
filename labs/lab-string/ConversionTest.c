@@ -1,5 +1,6 @@
 #include <assert.h>
 #include "Conversion.h"
+#include "String.h"
 
 /*
  * ConversionTest.c — Pruebas del modulo Conversion
@@ -17,7 +18,14 @@ int main(void) {
     assert(ToInteger("-7") == -7);
     assert(ToInteger("100") == 100);
 
-    /* ── Operacion libre — agregar tests aca ────────────────────────────── */
+        char buffer[12];
+    FromInteger(0, buffer);    assert(AreEqual(buffer, "0"));
+    FromInteger(7, buffer);    assert(AreEqual(buffer, "7"));
+    FromInteger(42, buffer);   assert(AreEqual(buffer, "42"));
+    FromInteger(-7, buffer);   assert(AreEqual(buffer, "-7"));
+    FromInteger(100, buffer);  assert(AreEqual(buffer, "100"));
+    FromInteger(-2147483647 - 1, buffer); assert(AreEqual(buffer, "-2147483648"));
+    FromInteger(-305, buffer); assert(ToInteger(buffer) == -305);
 
     return 0;
 }
